@@ -1,0 +1,19 @@
+@import "../../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_variables.scss";
+@import "../variables/variables.scss";
+
+.container-full {
+  @extend .container;
+
+  /* Small devices */
+  @media (min-width: $screen-sm-min) {
+    width:  $container-full-fixed-width
+  }
+  /* Medium devices */
+  @media (min-width: $screen-md-min) {
+    width:  $container-full-fixed-width
+  }
+  /* Large devices */
+  @media (min-width: $screen-lg-min) {
+    width: $container-full-fixed-width
+  }
+}

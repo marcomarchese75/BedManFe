@@ -4,6 +4,8 @@ $fa-font-path:   "../fonts/font-awesome-4.2.0/fonts";
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "variables/variables.scss";
+@import "components/components.scss";
 @import "../fonts/font-awesome-4.2.0/scss/font-awesome.scss";
 
 .browsehappy {
