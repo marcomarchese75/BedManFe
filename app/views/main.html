@@ -1,23 +1,102 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
+<div class="alert alert-success" role="alert" ng-show="insertedNewRecord"><i class="fa fa-thumbs-up"></i> Hai inserito un nuovo record</div>
+<div class="alert alert-warning" role="alert" ng-show="deletedRecord"><i class="fa fa-thumbs-up"></i> Hai cancellato un record</div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+<div class="row-fluid">
+  <div class="col-lg-12">
+    <p>Vediamo cosa succede utilizzando l'elemento DIV</p>
+    <div class="col-lg-8">
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th ng-click="click('ril_id')">Id<i ng-class="(reverse == true) ? 'fa fa-caret-down' : 'fa fa-caret-up'"></i></th>
+          <th>Struttura</th>
+          <th>Anno</th>
+          <th>Cartella</th>
+          <th>Ass_ipca</th>
+          <th>Tipo</th>
+          <th>Valore<input ng-model="valoreSearch"></th>
+          <th>Note</th>
+          <th>Data</th>
+          <th>Utente Ins.</th>
+          <th>Data Ins.</th>
+          <th>Modifica</th> <!-- intestazione del "modifica" -->
+          <th>Cancella</th> <!-- intestazione del "cancella" -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in allRilevazioniData |  orderBy:sort:reverse | filter:valoreSearch">
+          <td>{{data.ril_id}}</td>
+          <td>{{data.ril_str_str}}</td>
+          <td>{{data.ril_ric_anno}}</td>
+          <td>{{data.ril_ric_cartella}}</td>
+          <td>{{data.ril_ass_ipca}}</td>
+          <td>{{data.ril_tipo}}</td>
+          <td>{{data.ril_val}}</td>
+          <td>{{data.ril_note}}</td>
+          <td>{{data.ril_data}}</td>
+          <td>{{data.ril_ute_ins}}</td>
+          <td>{{data.ril_data_ins}}</td>
+          <td><i class="fa fa-pencil" ng-click="editItem(data)"></i></td>
+          <td><i class="fa fa-remove" ng-click="removeItem(data.ril_id)"></i></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+    <div class="col-lg-4">
+      <form name="AnagData" class="form-horizontal" role="form" >
+        <div class="form-group">
+          <label for="ass_cogn" class="col-sm-2 control-label">Cognome</label>
+
+          <div class="col-sm-10">
+            <input type="input" name="ass_cogn" class="form-control" id="ass_cogn" placeholder="Cognome" ng-model="ass_cogn" required>
+            <span class="error" ng-show="AnagData.ass_cogn.$error.required">Il campo cognome è obbligatorio!</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ass_nome" class="col-sm-2 control-label">Nome</label>
+
+          <div class="col-sm-10">
+            <input type="input" class="form-control" id="ass_nome" placeholder="Nome" ng-model="ass_nome" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ass_tel" class="col-sm-2 control-label">Telefono</label>
+          <!-- COMMENTO PROVVISORIO
+          <select data-ng-model="data.ass_tel"
+                  data-ng-options="data.ass_tel for data in allPatientsData">
+          </select>-->
+          <div class="col-sm-10">
+            <input type="input" class="form-control" id="ass_tel" placeholder="Telefono" ng-model="ass_tel" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ass_email" class="col-sm-2 control-label">Email</label>
+
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="ass_email" placeholder="Email" ng-model="ass_email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ass_citta" class="col-sm-2 control-label">Nazionalità</label>
+
+          <div class="col-sm-10">
+            <input class="form-control" id="ass_citta" placeholder="Nazionalità" ng-model="ass_citta" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10" ng-hide="editRecord">
+            <button type="submit" class="btn btn-default" ng-click="createOrUpdate()" ng-disabled="AnagData.$invalid">Aggiungi <i class="fa fa-plus"></i></button>
+            <button type="submit" class="btn btn-success" ng-click="saveOnDB()">Salva <i class="fa fa-chevron-right"></i></button>
+          </div>
+          <div class="col-sm-offset-2 col-sm-10" ng-show="editRecord">
+            <button type="submit" class="btn btn-info" ng-click="edit()">Modifica <i class="fa fa fa-pencil"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

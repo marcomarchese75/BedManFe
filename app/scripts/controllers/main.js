@@ -8,10 +8,16 @@
  * Controller of the bedManFeApp
  */
 angular.module('bedManFeApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, $timeout, Rilevazione) {
+
+    $scope.allRilevazioniData = {};
+
+    $scope.allRilevazioniData = Rilevazione.query();
+
+    $scope.reverse = false;
+    $scope.click = function (name) {
+      $scope.sort = name;
+      $scope.reverse = !$scope.reverse;
+    }
+
   });
