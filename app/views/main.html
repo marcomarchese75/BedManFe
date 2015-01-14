@@ -1,6 +1,7 @@
 <p>Questa è la vista per l'inserimento delle rilevazioni.</p>
 <div class="alert alert-success" role="alert" ng-show="insertedNewRecord"><i class="fa fa-thumbs-up"></i> Hai inserito un nuovo record</div>
 <div class="alert alert-warning" role="alert" ng-show="deletedRecord"><i class="fa fa-thumbs-up"></i> Hai cancellato un record</div>
+<div class="alert alert-danger" role="alert" ng-show="errorSaving"><i class="fa fa-thumbs-down"></i> Errore in fase di salvataggio su DB.</div>
 
 <div class="row-fluid">
   <div class="col-lg-12">
@@ -51,27 +52,30 @@
           <label for="ril_str_str" class="col-sm-2 control-label">Struttura</label>
 
           <div class="col-sm-10">
-            <input type="input" name="ril_str_str" class="form-control" id="ril_str_str" placeholder="Struttura" ng-model="ril_str_str">
+            <input type="input" name="ril_str_str" class="form-control" id="ril_str_str" placeholder="Struttura" ng-model="ril_str_str" ng-pattern="/^[0-9]{1,5}$/" required>
+            <span  ng-show="RilData.ril_str_str.$error.pattern">Formato struttura non valido!</span>
           </div>
         </div>
         <div class="form-group">
           <label for="ril_ric_anno" class="col-sm-2 control-label">Anno</label>
 
           <div class="col-sm-10">
-            <input type="input" class="form-control" id="ril_ric_anno" placeholder="Anno" ng-model="ril_ric_anno">
+            <input type="input" class="form-control" id="ril_ric_anno" placeholder="Anno" ng-model="ril_ric_anno" ng-pattern="/^[0-9]{1,4}$/" required>
+            <div  ng-show="RilData.ril_ric_anno.$error.pattern">Formato anno cartella non valido!</div>
           </div>
         </div>
         <div class="form-group">
           <label for="ril_ric_cartella" class="col-sm-2 control-label">Cartella</label>
           <div class="col-sm-10">
-            <input type="input" class="form-control" id="ril_ric_cartella" placeholder="Cartella" ng-model="ril_ric_cartella">
+            <input type="input" class="form-control" id="ril_ric_cartella" placeholder="Cartella" ng-model="ril_ric_cartella" ng-pattern="/^[0-9]{1,12}$/" required>
+            <span  ng-show="RilData.ril_ric_cartella.$error.pattern">Formato numero cartella non valido!</span>
           </div>
         </div>
         <div class="form-group">
           <label for="ril_ass_ipca" class="col-sm-2 control-label">Ass_ipca</label>
-
+          <span  ng-show="RilData.ril_ass_ipca.$error.pattern">Formato id paziente non valido!</span>
           <div class="col-sm-10">
-            <input type="input" class="form-control" id="ril_ass_ipca" placeholder="Ass_ipca" ng-model="ass_ipca" required>
+            <input type="input" class="form-control" id="ril_ass_ipca" placeholder="Ass_ipca" ng-model="ril_ass_ipca" required>
           </div>
         </div>
 
@@ -125,11 +129,11 @@
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10" ng-hide="editRecord">
-            <button type="submit" class="btn btn-default" ng-click="createOrUpdate()" ng-disabled="AnagData.$invalid">Aggiungi <i class="fa fa-plus"></i></button>
-            <button type="submit" class="btn btn-success" ng-click="saveOnDB()">Salva <i class="fa fa-chevron-right"></i></button>
+            <button type="submit" class="btn btn-default" ng-click="createOrUpdate()" ng-disabled="RilData.$invalid">Aggiungi <i class="fa fa-plus"></i></button>
+            <button type="submit" class="btn btn-success" ng-click="saveOnDB()" ng-disabled="RilData.$invalid">Salva <i class="fa fa-chevron-right"></i></button>
           </div>
           <div class="col-sm-offset-2 col-sm-10" ng-show="editRecord">
-            <button type="submit" class="btn btn-info" ng-click="edit()">Modifica <i class="fa fa fa-pencil"></i></button>
+            <button type="submit" class="btn btn-info" ng-click="edit()" ng-disabled="RilData.$invalid">Modifica <i class="fa fa fa-pencil"></i></button>
           </div>
         </div>
       </form>
